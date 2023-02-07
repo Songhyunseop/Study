@@ -19,18 +19,6 @@
 
 | 폴더 | 명령어 |
 | --- | --- |
-| 01_variable,function,type | yarn submit01 |
-| 02_conditional,string,loop | yarn submit02 |
-| 03_array,object | yarn submit03 |
-
-## 주차별 문제 배정
-
-- **1주차**
-`폴더 01` 전체
-
-- **2주차**
-`폴더 02` 전체
-
-- **3주차**
-`폴더 03` 전체
-
+| 01_variable,function,type | `yarn submit01` |
+| 02_conditional,string,loop | `yarn submit02` |
+| 03_array,object | `yarn submit03` |
