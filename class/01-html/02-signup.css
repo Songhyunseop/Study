@@ -1,0 +1,104 @@
+
+.Box {
+    width: 670px;
+    height: 960px;
+    background: #FFFFFF;
+border: 1px solid #AACDFF;
+box-shadow: 7px 7px 39px rgba(0, 104, 255, 0.25);
+border-radius: 20px;
+margin: 0 auto;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-evenly
+}
+
+
+
+
+
+.mm {
+    width: 466px;
+    border: 0;
+    border-bottom: 1px solid #CFCFCF;
+}
+
+
+
+
+h2 {
+    width: 466px;
+    height: 94px;
+    font-family: 'Noto Sans CJK KR';
+font-style: normal;
+font-weight: 700;
+font-size: 32px;
+line-height: 47px;
+color: #0068FF;
+}
+
+
+
+
+
+
+
+.mail {
+    width: 466px;
+    height: 23.65px;
+    font-family: 'Noto Sans CJK KR';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height */
+color: #797979;
+}
+
+
+
+.mf {
+    font-size: 16px;
+line-height: 24px;
+}
+
+
+.line {
+    width: 470px;
+    height: 1px;
+    background-color: #E6E6E6;
+}
+
+
+
+
+.check {
+    font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 21px;
+/* identical to box height */
+
+
+color: #000000;
+}
+
+
+
+
+.btn {
+    width: 470px;
+    height: 75px;
+    background: #FFFFFF;
+border: 1px solid #0068FF;
+border-radius: 10px;
+font-size: 18px;
+font-weight: 400;
+font-size: 18px;
+line-height: 27px;
+/* identical to box height */
+
+text-align: center;
+margin-bottom: 40px;
+color: #0068FF;
+}
