@@ -1,20 +1,16 @@
+let isStarted = false 
 
-
-let isStarted = false
-
-
-
- const timer = () => {
+const timer = () => {
 
   if (isStarted===false) {
     //타이머가 작동중이 아닐 때
     isStarted=true
     document.getElementById("ok").disabled = false
 
-    let time = 10
-    let timer
+    let time = 180
+    let timeEnd
 
-   timer = setInterval(function hello() {
+   timeEnd = setInterval(function hello() {
        if(time>=0) {
          let min = Math.floor(time / 60)
          let sec = String(time % 60).padStart(2,0)
@@ -23,7 +19,7 @@ let isStarted = false
      } else {
          document.getElementById("ok").disabled = true
          isStarted = false
-         clearInterval(timer)
+         clearInterval(timeEnd)
      }
   },1000)
 

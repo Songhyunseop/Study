@@ -1,6 +1,5 @@
 
 
-let timer
 
 const login = () => {
     
@@ -55,6 +54,8 @@ const next2 = () => {
 
 }
 
+let active = false
+let timer
 
 
 const buttonClick = () => {
@@ -68,9 +69,7 @@ const buttonClick = () => {
     
 
 
-    let time = 10
-    let active = false
-
+    let time = 180
 
     if(active===false) {
 
@@ -93,6 +92,8 @@ const buttonClick = () => {
                 document.getElementById("send__button").disabled = false
                 document.getElementById("rest__time").innerText = "3:00"
                 document.getElementById("number").innerText = "000000"
+                document.getElementById("okButton").disabled = true
+                clearInterval(timer)
                 active = false
             }
             
@@ -109,7 +110,7 @@ const buttonClick = () => {
 
 const complete = () => {
 
-    let name = document.getElementById("tx1").value 
+    let name = document.getElementById("tx2").value 
 
 
     alert(name + "님 인증이 완료되었습니다")
@@ -124,10 +125,155 @@ const complete = () => {
 
 
 
-    document.getElementById("rest__time").innerText = "3:00"
+    document.getElementById("rest__time").innerText = "인증완료됨"
     document.getElementById("number").innerText = "000000"
     
 }
 
 
- 
+
+
+
+
+
+const signClick = () => {
+
+    let tx1 = document.getElementById("tx1").value
+    let tx2 = document.getElementById("tx2").value
+    let pw1 = document.getElementById("pw1").value
+    let pw2 = document.getElementById("pw2").value
+
+    
+    if(tx1==="") {
+
+        document.getElementById("wrong1").innerText = "이메일을 입력해주세요" 
+        
+    } else if(tx1.includes("@")===false) {
+
+        document.getElementById("wrong1").innerText = "이메일이 올바르지 않습니다"
+    } else {
+
+        document.getElementById("wrong1").innerText = ""
+    }
+
+
+
+
+
+    let korean = /^[가-힣]*$/
+
+
+
+    if(tx2==="") {
+
+        document.getElementById("wrong2").innerText = "이름을 입력해주세요"
+    
+    } else if(korean.test(tx2)===false) {
+
+        document.getElementById("wrong2").innerText = "이름이 올바르지 않습니다"
+    
+    } else {
+
+        document.getElementById("wrong2").innerText = ""
+    } 
+
+
+
+
+    if(pw1==="") {
+
+        document.getElementById("wrong3").innerText = "비밀번호를 입력해주세요"
+    
+    } else {
+
+        document.getElementById("wrong3").innerText = ""
+    
+    } 
+
+
+
+
+    if(pw2==="") {
+
+        document.getElementById("wrong4").innerText = "비밀번호를 입력해주세요"
+    
+    } else {
+
+        document.getElementById("wrong4").innerText = ""
+    }
+
+
+
+
+    if(pw1!=="" && pw2!=="" && pw1!==pw2) {
+
+        document.getElementById("wrong3").innerText = "비밀번호가 다릅니다"
+        document.getElementById("wrong4").innerText = "비밀번호가 다릅니다"
+    
+    } else if(pw1!=="" && pw2!=="" && pw1===pw2) {
+
+        document.getElementById("wrong3").innerText = ""
+        document.getElementById("wrong4").innerText = ""
+    }
+
+
+
+    
+    let selectBox = document.getElementById("selectBox").value
+
+    
+    if(selectBox==="") {
+
+        document.getElementById("select__wrong").innerText = "지역을 선택해주세요"
+        
+    } else {
+
+        document.getElementById("select__wrong").innerText = ""
+    }
+
+
+
+
+
+    let female = document.getElementById("female").checked
+    let male = document.getElementById("male").checked 
+
+    
+    if(female===false && male===false) {
+
+        document.getElementById("mf__wrong").innerText = "성별을 선택해주세요"
+    
+    } else if(female===true || male===true) {
+
+        document.getElementById("mf__wrong").innerText = ""
+    }
+
+
+
+
+    if(tx1==="") {
+
+    } else if(tx1.includes("@")===false) {
+
+    } else if(tx2==="") {
+
+    } else if(korean.test(tx2)===false) {
+
+    } else if(pw1==="") {
+
+    } else if(pw2==="") {
+
+    } else if(pw1!==pw2) {
+
+    } else if(selectBox==="") {
+
+    } else if(female===false && male===false) {
+
+    } else {
+
+        alert("코드캠프 가입을 축하드립니다!")
+
+        window.location.href = "http://127.0.0.1:5500/cyworld/index.html"
+    }
+
+}
