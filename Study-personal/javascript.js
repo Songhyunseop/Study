@@ -1,10 +1,22 @@
 
-const korean = /^[ㄱ-ㅎ|가-힣]+$/
-let str = "송현섭"
 
 
-console.log(korean.test(str)) === true
-// 한글만 입력되어 있음
+let blank = []
 
-console.log(korean.test(str)) === false
-// 한글 외에 문자 입력되어 있음
+
+const randomPlay=() => {
+
+
+
+for(i=0;i>6;i++) {
+
+
+    blank.push(String(Math.floor(Math.random()*1000000)))
+
+
+    
+}
+
+  document.getElementById("color1").innerText = blank[0]
+
+ }
