@@ -1,0 +1,40 @@
+
+* {
+    box-sizing: border-box;
+}
+
+
+.container {
+
+    width: 600px;
+    height: 500px;
+    background-color: #eeeeee;
+    border: 2px solid red;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content:space-between
+}
+
+
+.container div {
+
+    background-color: blue;
+    width: 200px;
+    margin: 5px;
+}
+
+
+
+.box4 {
+
+    order:2
+
+}
+
+
+
+.box5 {
+
+    order:1
+}
