@@ -1,0 +1,184 @@
+
+* {
+    box-sizing: border-box;
+}
+
+
+
+.container {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.mousebox {
+    width: 180px;
+    padding-top: 25px;
+    padding-bottom: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    
+    
+}
+
+
+
+
+
+.animebox {
+    width: 180px;
+    margin-top: 25px;
+    padding-bottom: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  
+}
+
+
+.exam {
+    font-weight: 700;
+    width: 300px;
+    height: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: gainsboro;
+}
+
+
+.mouse1 {
+    width: 25px;
+    height: 45px;
+    border: 3px solid black;
+    border-radius: 15px;
+    position: relative;
+    animation: updownmouse 1.9s ease-in-out infinite normal;
+
+}
+
+
+.mouse1__1 {
+    width: 5px;
+    height: 9px;
+    border-radius: 15px;
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    background-color: black;
+}
+
+
+@keyframes updownmouse {
+
+    0% {
+        transform: translate(0);
+
+    } 25% {
+        transform: translateY(-17px)
+
+    } 100% {
+        transform: translateY(0);
+    }
+}
+
+
+
+
+
+.mouse2 {
+
+    width: 25px;
+    height: 45px;
+    border: 3px solid black;
+    border-radius: 15px;
+    position: relative;
+}
+
+
+.mouse2__2 {
+
+    width: 5px;
+    height: 6px;
+    border-radius: 15px;
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    background-color: black;
+    animation: scroll 1.5s infinite normal;
+}
+
+
+
+@keyframes scroll {
+
+    from { transform: translateY(0);
+        
+
+    } to { transform: translateY(6px);
+
+    }
+}
+
+
+
+
+
+@keyframes heart {
+
+    from {
+        transform: scale(1);
+
+    } to {
+        transform: scale(0.9);
+
+    }
+}
+
+
+.fa-heart {
+
+    animation: heart 0.7s infinite alternate;
+}
+
+
+
+@keyframes star {
+
+    from {
+        transform: rotateY(0);
+
+    } to {
+        transform: rotateY(180deg);
+    }
+}
+
+
+.fa-star {
+
+    animation: star 1s linear infinite alternate;
+}
+
+
+
+
+@keyframes rotate {
+
+    from {
+        transform: rotate(0);
+
+    } to {
+        transform: rotate(360deg);
+    }
+}
+
+
+
+.fa-rotate-right {
+    
+    animation: rotate 1.5s linear infinite normal;
+}
