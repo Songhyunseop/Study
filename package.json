@@ -1,5 +1,10 @@
 {
-  "scripts": { "lint" : "yarn lint" },
+  "license": "MIT",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "lint": "next lint"
+  },
   "devDependencies": {
     "husky": "^8.0.3"
   }
