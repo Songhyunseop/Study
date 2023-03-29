@@ -1,14 +1,11 @@
+import WriteBoard from "../../../src/components/units/BoardCheck/BoardCheck.container";
+import CommentWriting from "../../../src/components/units/BoardComment/BoardCheck.container";
 
-import WriteBoard from "../../../src/components/units/BoardCheck/BoardCheck.container"
-
-
-export default function Commenter () {
-
-    return(
-        <>
-         <WriteBoard 
-         cmtEdit={true}
-         />
-        </>
-    )
+export default function Commenter() {
+  return (
+    <>
+      <WriteBoard cmtEdit={true} />
+      <CommentWriting cmtEdit={true} />
+    </>
+  );
 }
