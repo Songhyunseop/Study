@@ -64,7 +64,7 @@ export const AlertBox = styled.img`
 export const Text = styled.div`
   font-weight: 400;
   font-size: 16px;
-  text-align: end;
+
   position: absolute;
   top: 34px;
   left: 730px;
@@ -106,15 +106,41 @@ export const DownBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 `;
 
 export const DownBox_Like = styled.div`
-  width: 110px;
+  width: 65px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+`;
+
+export const LikeBox = styled.div`
+  width: 90px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: absolute;
+  top: 530px;
+`;
+
+export const LikeThis = styled.img`
+  :active {
+    transform: scale(1.5) translateY(-5.5px);
+  }
+`;
+
+export const DisLikeThis = styled.img`
+  :active {
+    transform: scale(1.5) translateY(5.5px);
+  }
+`;
+
+export const LikeNumber = styled.span`
+  width: 40px;
+  text-align: center;
 `;
 
 export const Wrapper_Bottom = styled.div`
@@ -142,4 +168,7 @@ export const Page_Btn = styled.button`
   font-weight: 400;
   font-size: 16px;
   border: 1px solid #bdbdbd;
+  :hover {
+    background-color: gold;
+  }
 `;

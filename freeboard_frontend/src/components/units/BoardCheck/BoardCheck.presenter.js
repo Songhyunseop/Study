@@ -1,10 +1,55 @@
 import * as S from "./BoardCheck.styles";
+import ReactPlayer from "react-player";
+import { useRouter } from "next/router";
+import Modal from "react-modal";
+
+const customStyles = {
+  content: {
+    width: "400px",
+    height: "210px",
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    border: "2px solid gold",
+    borderTop: "35px solid gold",
+    boxShadow: "1px 1px #DBA901",
+  },
+};
 
 export default function Writing(props) {
+  const router = useRouter();
+
   console.log(props.data2?.fetchBoardComments[0]?.rating);
+  console.log(router.query.id);
   return (
     <div>
       <div>
+        <Modal
+          isOpen={props.modalIsOpen}
+          onRequestClose={props.closeModal}
+          style={customStyles}
+          ariaHideApp={false}
+          afterOpenModal={props.afterOpenModal}
+        >
+          <h2>삭제되었습니다</h2>
+          <div>{props.error}</div>
+          <button
+            style={{
+              backgroundColor: "gold",
+              width: "100px",
+              height: "30px",
+              border: "2px solid #FFBF00",
+              boxShadow: "2px 2px black",
+              margin: "30px 0px 0px 130px",
+            }}
+            onClick={props.closeModal}
+          >
+            닫기
+          </button>
+        </Modal>
         <S.Wrapper>
           <S.Title>
             <S.Privacy>
@@ -16,14 +61,18 @@ export default function Writing(props) {
             </S.Privacy>
             <S.Emoji>
               <img src="/Link.png"></img>
-              <img src="/Location.png" onClick={props.toggleVisible}></img>
+              <img
+                src="/Location.png"
+                onMouseOver={props.toggleVisible}
+                onMouseOut={props.toggleVisible}
+              ></img>
             </S.Emoji>
           </S.Title>
           {props.IsVisible && <S.AlertBox src="/alertBox.png"></S.AlertBox>}
           <S.Text>
-            서울특별시 영등포구 양산로 200
+            <span>{props.data?.fetchBoard.boardAddress?.address}</span>
             <br />
-            (영등포동 5가, 영등포시장역) 영등포 타임스퀘어 2층
+            <span>{props.data?.fetchBoard.boardAddress?.addressDetail}</span>
           </S.Text>
           <S.Body>
             <S.UpBox>
@@ -34,11 +83,33 @@ export default function Writing(props) {
           </S.Body>
           <S.Bottom>
             <S.DownBox>
-              <img src="/Video.png"></img>
+              <ReactPlayer
+                url={props.data?.fetchBoard.youtubeUrl}
+                playing={true}
+                width="486px"
+                height="240px"
+                controls={true}
+              />
               <S.DownBox_Like>
-                <img src="/Like.png"></img>
-                <img src="/Dislike.png"></img>
+                <S.LikeThis
+                  onClick={props.LikeCLick}
+                  style={{ width: "20px", height: "18px" }}
+                  src="/Like.png"
+                ></S.LikeThis>
+                <S.DisLikeThis
+                  onClick={props.DislikeCLick}
+                  style={{ width: "20px", height: "18px" }}
+                  src="/Dislike.png"
+                ></S.DisLikeThis>
               </S.DownBox_Like>
+              <S.LikeBox>
+                <S.LikeNumber style={{ color: "gold", fontSize: "20px" }}>
+                  {props.data?.fetchBoard?.likeCount}
+                </S.LikeNumber>
+                <S.LikeNumber style={{ color: "gray", fontSize: "20px" }}>
+                  {props.data?.fetchBoard?.dislikeCount}
+                </S.LikeNumber>
+              </S.LikeBox>
             </S.DownBox>
           </S.Bottom>
         </S.Wrapper>

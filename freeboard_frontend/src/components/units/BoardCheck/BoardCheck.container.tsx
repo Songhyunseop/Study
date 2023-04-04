@@ -1,11 +1,19 @@
 import { useQuery, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { FETCH_BOARD, DELETE_BOARD } from "./BoardCheck.queries";
+import {
+  FETCH_BOARD,
+  DELETE_BOARD,
+  LIKE_BOARD,
+  DISLIKE_BOARD,
+} from "./BoardCheck.queries";
 import Writing from "./BoardCheck.presenter";
 
 export default function WriteBoard(props) {
   const [IsVisible, setIsVisible] = useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  const [error, setError] = useState("");
 
   const router = useRouter();
 
@@ -16,6 +24,17 @@ export default function WriteBoard(props) {
   });
 
   const [deleteBoard] = useMutation(DELETE_BOARD);
+  const [likeBoard] = useMutation(LIKE_BOARD);
+  const [DislikeBoard] = useMutation(DISLIKE_BOARD);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+    router.push("/best-list");
+  }
 
   const getList = () => {
     router.push("/best-list");
@@ -26,27 +45,66 @@ export default function WriteBoard(props) {
   };
 
   const getDelete = async () => {
-    // refetch 후 화면상에 리렌더링 안됨... 뭐가 문제 ??
+    if (!modalIsOpen) {
+      try {
+        await deleteBoard({
+          variables: {
+            boardId: router.query.number,
+          },
+          refetchQueries: [
+            {
+              query: FETCH_BOARD,
 
-    await deleteBoard({
-      variables: {
-        boardId: router.query.number,
-      },
-      refetchQueries: [
-        {
-          query: FETCH_BOARD,
-
-          variables: { boardId: router.query.number },
-        },
-      ],
-    });
-
+              variables: { boardId: router.query.number },
+            },
+          ],
+        });
+        openModal();
+      } catch (error) {
+        setError(error.message);
+        setIsOpen(true);
+      }
+    }
     // router.push("/delete-complete")
   };
 
   const toggleVisible = () => {
     setIsVisible(!IsVisible);
   };
+
+  const LikeCLick = async () => {
+    const result = await likeBoard({
+      variables: {
+        boardId: router.query.number,
+      },
+      refetchQueries: [
+        {
+          query: FETCH_BOARD,
+          variables: {
+            boardId: router.query.number,
+          },
+        },
+      ],
+    });
+  };
+
+  const DislikeCLick = async () => {
+    await DislikeBoard({
+      variables: {
+        boardId: router.query.number,
+      },
+      refetchQueries: [
+        {
+          query: FETCH_BOARD,
+          variables: {
+            boardId: router.query.number,
+          },
+        },
+      ],
+    });
+  };
+
+  console.log(data);
 
   return (
     <div>
@@ -58,6 +116,10 @@ export default function WriteBoard(props) {
         getEdit={getEdit}
         getDelete={getDelete}
         cmtEdit={props.cmtEdit}
+        LikeCLick={LikeCLick}
+        DislikeCLick={DislikeCLick}
+        modalIsOpen={modalIsOpen}
+        closeModal={closeModal}
       />
     </div>
   );

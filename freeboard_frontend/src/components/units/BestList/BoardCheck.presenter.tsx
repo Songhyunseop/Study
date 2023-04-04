@@ -24,7 +24,7 @@ export default function BestListUI(props: IBestListUIProps) {
             </tr>
             {props.data?.fetchBoards.map((el: any, idx: number) => (
               <S.Board_List key={el._id}>
-                <S.BoardItem1>{idx + 1}</S.BoardItem1>
+                <S.BoardItem1>{idx + props.Next}</S.BoardItem1>
                 <S.BoardItem2 id={el._id} onClick={props.clickNext}>
                   {el.title}
                 </S.BoardItem2>
@@ -38,10 +38,22 @@ export default function BestListUI(props: IBestListUIProps) {
       <S.Board_Bottom>
         <S.Bottom_Box>
           <S.PageNumber>
-            <S.Arrow src="/arrow_left.png"></S.Arrow>
-            <S.Page>1</S.Page>
-            <S.Page>2</S.Page>
-            <S.Arrow src="/arrow_right.png"></S.Arrow>
+            <S.PageBtn onClick={props.MoveFirst}>첫 페이지</S.PageBtn>
+            <S.Arrow onClick={props.MovePrev} src="/arrow_left.png"></S.Arrow>
+            {new Array(10).fill(1).map((el, idx) => (
+              <S.Page
+                style={{
+                  color: props.targetNum === String(idx) ? "gold" : "",
+                }}
+                id={idx}
+                onClick={props.ClickNumber}
+                key={idx}
+              >
+                {props.Next + idx}
+              </S.Page>
+            ))}
+            <S.Arrow onClick={props.MoveNext} src="/arrow_right.png"></S.Arrow>
+            <S.PageBtn onClick={props.MoveEnd}>마지막 페이지</S.PageBtn>
           </S.PageNumber>
           <S.Create_Board onClick={props.GoCreate}>
             게시물 등록하기

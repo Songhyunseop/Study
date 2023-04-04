@@ -4,8 +4,8 @@ import CommentWriting from "../../../src/components/units/BoardComment/BoardChec
 export default function Commenter() {
   return (
     <>
-      <WriteBoard cmtEdit={true} />
-      <CommentWriting cmtEdit={true} />
+      <WriteBoard />
+      <CommentWriting />
     </>
   );
 }

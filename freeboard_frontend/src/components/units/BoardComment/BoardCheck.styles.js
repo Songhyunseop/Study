@@ -1,5 +1,16 @@
 import styled from "@emotion/styled";
 
+export const InputBox = styled.div`
+  font-weight: 500;
+  width: 320px;
+  height: 35px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+`;
+
 export const CommentBox = styled.div`
   margin: 0 auto;
   width: 1200px;
@@ -55,6 +66,10 @@ export const Cmt_Content = styled.div`
   height: 20%;
 `;
 
+export const Cmt = styled.div`
+  padding-bottom: 500px;
+`;
+
 export const Cmt_Content_Box = styled.input`
   width: 100%;
   height: 98px;
@@ -89,77 +104,4 @@ export const CreateBtn = styled.button`
   font-size: 16px;
   color: ${(props) => (props.cmtEdit ? "black" : "white")};
   background-color: ${(props) => (props.cmtEdit ? "gold" : "black")};
-`;
-
-export const Cmt_Box = styled.div`
-  border-bottom: 1px solid #bdbdbd;
-  display: flex;
-  flex-direction: row;
-  margin-top: 30px;
-  margin-bottom: 20px;
-`;
-
-export const ProfileImage = styled.div``;
-
-export const ProfileLeft = styled.div`
-  width: calc(100% - 48px);
-  height: 130px;
-  display: flex;
-  flex-direction: column;
-`;
-
-export const Cmt = styled.div`
-  padding-bottom: 500px;
-`;
-
-export const CmtUpper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-export const CmtUpperBox1 = styled.div``;
-
-export const CMtUpperBox2 = styled.div`
-  width: 50px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-export const UserName = styled.span`
-  font-family: "Noto Sans CJK KR";
-  font-weight: 500;
-  font-size: 16px;
-  margin-left: 16px;
-  margin-right: 18px;
-`;
-
-export const RateEdit2 = styled.span``;
-
-export const Edit = styled.img`
-  cursor: pointer;
-`;
-
-export const Delete = styled.img`
-  cursor: pointer;
-`;
-
-export const CmtBottom = styled.div`
-  margin-left: 16px;
-  width: 100%;
-  height: 82px;
-  font-weight: 400;
-  font-size: 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
-export const Cmt_Text = styled.div``;
-
-export const Cmt_CreateDate = styled.div`
-  font-weight: 400;
-  font-size: 12px;
-  color: #bdbdbd;
 `;

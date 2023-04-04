@@ -1,249 +1,256 @@
+import { useState } from "react";
+import { useMutation } from "@apollo/client";
+import { useRouter } from "next/router";
+import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
+import BoardUI from "./BoardWrite.presenter";
 
-import { useState } from "react"
-import { useMutation } from "@apollo/client"
-import { useRouter } from "next/router"
-import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries"
-import BoardUI from "./BoardWrite.presenter"
+export default function BoardFn(props) {
+  const [Write, setWrite] = useState("");
+  const [Pw, setPw] = useState("");
+  const [Titlee, setTitlee] = useState("");
+  const [Contents, setContents] = useState("");
+  const [Youtube, setYoutube] = useState("");
 
+  const [WriteError, setWriteError] = useState("");
+  const [PwError, setPwError] = useState("");
+  const [TitleError, setTitleError] = useState("");
+  const [ContentsError, setContentsError] = useState("");
+  const [isMail, setIsMail] = useState(false);
 
-export default function BoardFn (props) {
+  const [isValid, setIsValid] = useState(false);
 
+  const [createBoard] = useMutation(CREATE_BOARD);
+  const [updateBoard] = useMutation(UPDATE_BOARD);
 
-    const [Write, setWrite] = useState("")
-    const [Pw, setPw] = useState("")
-    const [Titlee, setTitlee] = useState("")
-    const [Contents, setContents] = useState("")
+  const router = useRouter();
 
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [addressIsOpen, setAddressIsOpen] = useState(false);
 
-    const [WriteError, setWriteError] = useState("")
-    const [PwError, setPwError] = useState("")
-    const [TitleError, setTitleError] = useState("")
-    const [ContentsError, setContentsError] = useState("")
+  const [error, setError] = useState("");
 
-    const [isValid, setIsValid] = useState(false)
+  const [fullAddress, setFullAddress] = useState("");
+  const [addressDetail, setAddressDetail] = useState("");
+  const [Zipcode, setZipcode] = useState("");
 
+  function openModal() {
+    setIsOpen(true);
+  }
 
-    const [createBoard] = useMutation(CREATE_BOARD)
-    const [updateBoard] = useMutation(UPDATE_BOARD)
+  function closeModal() {
+    setIsOpen(false);
+  }
 
-    const router = useRouter()
+  function openBox() {
+    setAddressIsOpen(true);
+  }
 
+  function closeBox() {
+    setAddressIsOpen(false);
+  }
 
+  function ChangeWrite(event) {
+    setWrite(event.target.value);
+    console.log(event);
 
-    
-    function ChangeWrite (event) {
+    if (event.target.value && Pw && Titlee && Contents) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
+  }
 
-        setWrite(event.target.value)
-        console.log(event)
+  function ChangePw(event) {
+    setPw(event.target.value);
 
-        if(event.target.value && Pw && Titlee && Contents) {
+    if (event.target.value && Write && Titlee && Contents) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
+  }
 
-            setIsValid(true)
+  function ChangeTitle(event) {
+    setTitlee(event.target.value);
 
-        } else {
-            setIsValid(false)
-        }
+    if (event.target.value && Pw && Write && Contents) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
+  }
+
+  function ChangeContent(event) {
+    setContents(event.target.value);
+
+    if (event.target.value && Pw && Titlee && Write) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
+  }
+
+  const ChangeYoutube = (event) => {
+    setYoutube(event.target.value);
+
+    console.log(event.target.value);
+  };
+
+  const ChangeAddress = (event) => {
+    setAddressDetail(event.target.value);
+    console.log(event.target.value);
+  };
+
+  // const [done,setDone] = useState(false)  // 문제점 : 초기값이 첫 실행에서는 재할당 안됨
+  // 두 번째 실행부터 할당되기 시작 (왜?) => [async가 비동기처리 되서]
+
+  const SignBtn = () => {
+    if (!Write) {
+      setWriteError("이름이 올바르지 않습니다");
+    } else {
+      setWriteError("");
     }
 
-
-
-    function ChangePw (event) {
-
-
-        setPw(event.target.value)
-
-        if(event.target.value && Write && Titlee && Contents) {
-
-            setIsValid(true)
-
-        } else {
-
-            setIsValid(false)
-
-        }
-
+    if (!Pw) {
+      setPwError("비밀번호가 올바르지 않습니다");
+    } else {
+      setPwError("");
     }
 
-
-
-    function ChangeTitle (event) {
-
-        setTitlee(event.target.value)
-
-        if(event.target.value && Pw && Write && Contents) {
-
-            setIsValid(true)
-
-        } else {
-
-            setIsValid(false)
-
-        }
+    if (!Titlee) {
+      setTitleError("제목이 올바르지 않습니다");
+    } else {
+      setTitleError("");
     }
 
+    if (!Contents) {
+      setContentsError("내용을 입력해 주세요");
+    } else {
+      setContentsError("");
+    }
+  };
 
-    
+  const CreateBtn = async () => {
+    setIsMail(!isMail);
 
+    if (!Write || !Pw || !Titlee || !Contents) {
+      setError("빈 칸을 모두 입력해 주세요");
+      openModal();
+    } else {
+      try {
+        const result = await createBoard({
+          variables: {
+            createBoardInput: {
+              writer: Write,
+              password: Pw,
+              title: Titlee,
+              contents: Contents,
+              youtubeUrl: Youtube,
+              boardAddress: {
+                zipcode: Zipcode,
+                address: fullAddress,
+                addressDetail: addressDetail,
+              },
+            },
+          },
+        });
 
-    function ChangeContent (event) {
+        router.push(`/board-page1/${result.data.createBoard._id}`);
+      } catch (error) {
+        setError(error.message);
+        openModal();
+      }
+    }
+  };
 
-        setContents(event.target.value)
+  console.log(11111);
+  console.log(Youtube);
+  console.log(Zipcode);
+  console.log(fullAddress);
+  console.log(addressDetail);
 
-        if(event.target.value && Pw && Titlee && Write) {
+  const EditBtn = async () => {
+    const myVariables = { updateBoardInput: {} };
 
-            setIsValid(true)
+    myVariables.boardId = router.query.number;
 
-        } else {
-
-            setIsValid(false)
-
-        }
+    if (Titlee) {
+      myVariables.updateBoardInput.title = Titlee;
     }
 
-
-
-    // const [done,setDone] = useState(false)  // 문제점 : 초기값이 첫 실행에서는 재할당 안됨
-                                              // 두 번째 실행부터 할당되기 시작 (왜?) => [async가 비동기처리 되서]
-
-    
-
-
-    const SignBtn = () => {
-
-
-        if(!Write) {
-            
-            setWriteError("이름이 올바르지 않습니다")
-
-        } else {
-
-            setWriteError("")
-        }
-
-
-        if(!Pw) {
-
-            setPwError("비밀번호가 올바르지 않습니다")
-
-        } else {
-
-            setPwError("")
-        }
-
-
-        if(!Titlee) {
-
-            setTitleError("제목이 올바르지 않습니다")
-
-        } else {
-
-            setTitleError("")
-        }
-
-
-        if(!Contents) {
-
-            setContentsError("내용을 입력해 주세요")
-
-        } else {
-
-            setContentsError("")
-        }
-
-
-        
+    if (Pw) {
+      myVariables.password = Pw;
     }
 
-
-
-
-
-    const CreateBtn = async() => {
-
-        if(Write && Pw && Titlee && Contents) {
-
-            
-
-         const result = await createBoard({variables:{
-            
-            createBoardInput:{
-                writer:Write, 
-                password:Pw,
-                title: Titlee, 
-                contents: Contents}}})
-
-                console.log(result)
-                
-               router.push(`/board-page1/${result.data.createBoard._id}`) 
-
-        }
+    if (Contents) {
+      myVariables.updateBoardInput.contents = Contents;
     }
 
+    console.log(myVariables);
 
-
-
-    const EditBtn = async() => {
-
-        const myVariables = {updateBoardInput:{}}
-
-        myVariables.boardId = router.query.number
-
-        if(Titlee) {
-            myVariables.updateBoardInput.title = Titlee}
-        
-        if(Pw) {
-            myVariables.password = Pw}
-
-
-        if(Contents) {    
-            myVariables.updateBoardInput.contents = Contents}
-        
-        
-         console.log(myVariables)   
-
-        
     try {
+      const result = await updateBoard({ variables: myVariables });
 
-      const result = await updateBoard({variables: myVariables})
+      console.log("hi");
+      console.log(result);
 
-      console.log("hi")
-      console.log(result)
+      router.push(`/board-page1/${router.query.number}`);
+    } catch (error) {
+      setError(error.message);
+      openModal();
+    }
+  };
 
-        router.push(`/board-page1/${router.query.number}`)
+  const handleComplete = (data3) => {
+    setFullAddress(data3.address);
+    setZipcode(data3.zonecode);
+    let extraAddress = "";
 
-     } catch(error) {
-            alert(error.message)
-     }
+    if (data3.addressType === "R") {
+      if (data3.bname !== "") {
+        extraAddress += data3.bname;
+      }
+      if (data3.buildingName !== "") {
+        extraAddress +=
+          extraAddress !== "" ? `, ${data3.buildingName}` : data3.buildingName;
+      }
+      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
     }
 
+    console.log(data3.zonecode); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
+  };
 
-
-
-
-
-
-
-
-
-    return(
-
-        <div>
-            <BoardUI aaa={WriteError}
-                     bbb={PwError}
-                     ccc={TitleError}
-                     ddd={ContentsError}
-                     chgWrite={ChangeWrite}
-                     chgPw={ChangePw}
-                     chgTitle={ChangeTitle}
-                     chgContent={ChangeContent}
-                     btn={CreateBtn}
-                     sign={SignBtn}
-                     create={CreateBtn}
-                     isEdit={props.isEdit}
-                     EditBtn={EditBtn}
-                     data={props.data}
-                     isValid={isValid}
-                      />
-        </div>
-    )
+  return (
+    <div>
+      <BoardUI
+        aaa={WriteError}
+        bbb={PwError}
+        ccc={TitleError}
+        ddd={ContentsError}
+        chgWrite={ChangeWrite}
+        chgPw={ChangePw}
+        chgTitle={ChangeTitle}
+        chgContent={ChangeContent}
+        btn={CreateBtn}
+        sign={SignBtn}
+        create={CreateBtn}
+        isEdit={props.isEdit}
+        EditBtn={EditBtn}
+        data={props.data}
+        isValid={isValid}
+        ChangeYoutube={ChangeYoutube}
+        modalIsOpen={modalIsOpen}
+        closeModal={closeModal}
+        openModal={openModal}
+        error={error}
+        handleComplete={handleComplete}
+        openBox={openBox}
+        closeBox={closeBox}
+        addressIsOpen={addressIsOpen}
+        fullAddress={fullAddress}
+        ChangeAddress={ChangeAddress}
+        Zipcode={Zipcode}
+      />
+    </div>
+  );
 }
