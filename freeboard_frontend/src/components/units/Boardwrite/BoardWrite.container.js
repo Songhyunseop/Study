@@ -25,6 +25,7 @@ export default function BoardFn(props) {
   const router = useRouter();
 
   const [modalIsOpen, setIsOpen] = useState(false);
+
   const [addressIsOpen, setAddressIsOpen] = useState(false);
 
   const [error, setError] = useState("");
@@ -51,7 +52,6 @@ export default function BoardFn(props) {
 
   function ChangeWrite(event) {
     setWrite(event.target.value);
-    console.log(event);
 
     if (event.target.value && Pw && Titlee && Contents) {
       setIsValid(true);
@@ -163,16 +163,16 @@ export default function BoardFn(props) {
     }
   };
 
-  console.log(11111);
-  console.log(Youtube);
-  console.log(Zipcode);
-  console.log(fullAddress);
-  console.log(addressDetail);
-
   const EditBtn = async () => {
-    const myVariables = { updateBoardInput: {} };
+    const myVariables = {
+      updateBoardInput: {},
+    };
 
     myVariables.boardId = router.query.number;
+
+    if (Zipcode || fullAddress || addressDetail) {
+      myVariables.updateBoardInput.boardAddress = {};
+    }
 
     if (Titlee) {
       myVariables.updateBoardInput.title = Titlee;
@@ -186,7 +186,17 @@ export default function BoardFn(props) {
       myVariables.updateBoardInput.contents = Contents;
     }
 
-    console.log(myVariables);
+    if (Zipcode) {
+      myVariables.updateBoardInput.boardAddress.zipcode = Zipcode;
+    }
+
+    if (fullAddress) {
+      myVariables.updateBoardInput.boardAddress.address = fullAddress;
+    }
+
+    if (addressDetail) {
+      myVariables.updateBoardInput.boardAddress.addressDetail = addressDetail;
+    }
 
     try {
       const result = await updateBoard({ variables: myVariables });
@@ -217,6 +227,7 @@ export default function BoardFn(props) {
       fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
     }
 
+    console.log(12345);
     console.log(data3.zonecode); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
   };
 
@@ -250,6 +261,10 @@ export default function BoardFn(props) {
         fullAddress={fullAddress}
         ChangeAddress={ChangeAddress}
         Zipcode={Zipcode}
+        addressDetail={addressDetail}
+        Pw={Pw}
+        Titlee={Titlee}
+        Contents={Contents}
       />
     </div>
   );

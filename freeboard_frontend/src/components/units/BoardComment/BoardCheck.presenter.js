@@ -2,6 +2,7 @@ import * as S from "./BoardCheck.styles";
 import CommentItem from "./CommentItem";
 import { useState } from "react";
 import Modal from "react-modal";
+import InfiniteScroll from "react-infinite-scroller";
 
 const customStyles = {
   content: {
@@ -23,6 +24,7 @@ const customStyles = {
 };
 
 export default function CommentWriting(props) {
+  console.log(props.data2?.fetchBoardComments);
   const [isCorrect, setIsCorrect] = useState("");
   return (
     <>
@@ -133,31 +135,39 @@ export default function CommentWriting(props) {
           </S.Cmt_Create>
         </S.Cmt_Content>
         <S.Cmt>
-          {props.data2?.fetchBoardComments.map((el, idx) => (
-            <CommentItem
-              ContentChk={props.ContentChk}
-              PwChk={props.PwChk}
-              data2={props.data2}
-              CommentEdit={props.CommentEdit}
-              el={el}
-              idx={idx}
-              setIsCorrect={setIsCorrect}
-              isCorrect={isCorrect}
-              key={el._id}
-              StarArr={props.StarArr}
-              StarRate={props.StarRate}
-              RatingVal={props.RatingVal}
-              StarArr2={props.StarArr2}
-              StarRate2={props.StarRate2}
-              setRatingVal2={props.setRatingVal2}
-              RatingVal2={props.RatingVal2}
-              setTargetId={props.setTargetId}
-              setIsEdit={props.setIsEdit}
-              isEdit={props.isEdit}
-              CmtDelete={props.CmtDelete}
-              deleteBox={props.deleteBox}
-            />
-          ))}
+          <InfiniteScroll
+            pageStart={0}
+            loadMore={props.onLoadMore}
+            hasMore={true}
+          >
+            <>
+              {props.data2?.fetchBoardComments.map((el, idx) => (
+                <CommentItem
+                  key={el._id}
+                  ContentChk={props.ContentChk}
+                  PwChk={props.PwChk}
+                  data2={props.data2}
+                  CommentEdit={props.CommentEdit}
+                  el={el}
+                  idx={idx}
+                  setIsCorrect={setIsCorrect}
+                  isCorrect={isCorrect}
+                  StarArr={props.StarArr}
+                  StarRate={props.StarRate}
+                  RatingVal={props.RatingVal}
+                  StarArr2={props.StarArr2}
+                  StarRate2={props.StarRate2}
+                  setRatingVal2={props.setRatingVal2}
+                  RatingVal2={props.RatingVal2}
+                  setTargetId={props.setTargetId}
+                  setIsEdit={props.setIsEdit}
+                  isEdit={props.isEdit}
+                  CmtDelete={props.CmtDelete}
+                  deleteBox={props.deleteBox}
+                />
+              ))}
+            </>
+          </InfiniteScroll>
         </S.Cmt>
       </S.CommentBox>
     </>

@@ -1,4 +1,10 @@
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import {
+  ApolloClient,
+  ApolloLink,
+  ApolloProvider,
+  InMemoryCache,
+} from "@apollo/client";
+import { createUploadLink } from "apollo-upload-client";
 
 const GLOBAL_STATE = new InMemoryCache();
 
@@ -7,8 +13,12 @@ interface IProps {
 }
 
 export default function ApolloSetting(props: IProps): JSX.Element {
-  const client = new ApolloClient({
+  const uploadLink = createUploadLink({
     uri: "http://backend-practice.codebootcamp.co.kr/graphql",
+  });
+
+  const client = new ApolloClient({
+    link: ApolloLink.from([uploadLink]),
     cache: GLOBAL_STATE, // 컴퓨터의 메모리(ram)에 백엔드에서 받아온 데이터를 모두 임시로 저장해두기 (ex. fetch로 받아오는 {data})
   });
 

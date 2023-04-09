@@ -52,7 +52,8 @@ export const PencilBox = styled.div`
 
 export const EditPencil = styled.button`
   background-color: gold;
-  width: 40px;
+  border: none;
+  width: 50px;
   height: 30px;
   color: black;
 `;

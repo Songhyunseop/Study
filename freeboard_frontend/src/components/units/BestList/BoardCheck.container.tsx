@@ -58,7 +58,9 @@ export default function BestList() {
 
   const MoveEnd = () => {
     if (Math.ceil(BoardsCount.fetchBoardsCount / 10) % 10 === 0) {
-      setNext(Math.ceil(BoardsCount.fetchBoardsCount / 10) - 10 + 1);
+      setNext(
+        (Math.ceil(BoardsCount.fetchBoardsCount / 10) * 0.1 - 1) * 10 + 1
+      );
     } else {
       setNext(
         Math.floor(Math.ceil(BoardsCount.fetchBoardsCount / 10) * 0.1) * 10 + 1

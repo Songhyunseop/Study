@@ -38,6 +38,13 @@ const customStyles2 = {
 };
 
 export default function BoardUI(props) {
+  // console.log(props.Pw);
+  console.log(111111111);
+  console.log(props.Titlee);
+  console.log(props.Contents);
+  console.log(props.data);
+  console.log(props.EditIsOpen);
+
   return (
     <div>
       <div>
@@ -136,17 +143,34 @@ export default function BoardUI(props) {
           <S.Mail>
             <S.AddresNum
               type="text"
-              defaultValue={!props.Zipcode ? "07250" : props.Zipcode}
+              value={
+                !props.Zipcode
+                  ? props.data?.fetchBoard.boardAddress.zipcode
+                  : props.Zipcode
+              }
               readOnly={true}
+              placeholder="07250"
             />
             <S.Btn onClick={props.openBox}>우편번호 검색</S.Btn>
           </S.Mail>
           <S.AddresBox
             readOnly={true}
             type="text"
-            defaultValue={props.fullAddress}
+            defaultValue={
+              !props.fullAddress
+                ? props.data?.fetchBoard.boardAddress.address
+                : props.fullAddress
+            }
           />
-          <S.AddresBox type="text" onChange={props.ChangeAddress} />
+          <S.AddresBox
+            type="text"
+            onChange={props.ChangeAddress}
+            defaultValue={
+              !props.addressDetail
+                ? props.data?.fetchBoard.boardAddress.addressDetail
+                : props.addressDetail
+            }
+          />
           <S.NameTag>유튜브</S.NameTag>
           <S.YoutubeLink
             onChange={props.ChangeYoutube}
@@ -180,7 +204,12 @@ export default function BoardUI(props) {
           </S.RadioCheck>
           <S.SignUp>
             <S.SignUpBtn
-              isValid={props.isValid}
+              disabled={
+                !props.Contents || !props.Titlee || !props.Pw ? true : false
+              }
+              isValid={
+                props.Contents && props.Pw && props.Titlee ? true : false
+              }
               onClick={
                 props.isEdit
                   ? props.EditBtn

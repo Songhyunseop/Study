@@ -81,11 +81,38 @@ export default function BoardCommentPage(props) {
     setDeleteIsOpen(!DeleteIsOpen);
   };
 
-  const { data: data2 } = useQuery(FETCH_BOARD_COMMENTS, {
+  const { data: data2, fetchMore } = useQuery(FETCH_BOARD_COMMENTS, {
     variables: {
       boardId: router.query.number,
     },
   });
+
+  // console.log(111111111111111);
+  console.log(data2?.fetchBoardComments.length);
+
+  const onLoadMore = () => {
+    if (data2 === undefined) return;
+    fetchMore({
+      variables: {
+        page: Math.ceil((data2?.fetchBoardComments.length ?? 10) / 10) + 1,
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        console.log(111111111111111);
+        console.log(prev);
+        console.log(fetchMoreResult, 123);
+        console.log(111111111111111);
+        if (fetchMoreResult.fetchBoardComments === undefined) {
+          return { fetchBoardComments: [...prev.fetchBoardComments] };
+        }
+        return {
+          fetchBoardComments: [
+            ...prev.fetchBoardComments,
+            ...fetchMoreResult?.fetchBoardComments,
+          ],
+        };
+      },
+    });
+  };
 
   const CommentEdit = async () => {
     const myVariables = {
@@ -253,6 +280,7 @@ export default function BoardCommentPage(props) {
         DeleteIsOpen={DeleteIsOpen}
         deleteBox={deleteBox}
         error={error}
+        onLoadMore={onLoadMore}
       />
     </>
   );
