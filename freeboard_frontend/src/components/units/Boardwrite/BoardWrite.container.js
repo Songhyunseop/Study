@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
-import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
+import { CREATE_BOARD, UPDATE_BOARD, UPLOAD_FILE } from "./BoardWrite.queries";
 import BoardUI from "./BoardWrite.presenter";
+import { useRef } from "react";
 
 export default function BoardFn(props) {
   const [Write, setWrite] = useState("");
@@ -21,6 +22,7 @@ export default function BoardFn(props) {
 
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
+  const [uploadFile] = useMutation(UPLOAD_FILE);
 
   const router = useRouter();
 
@@ -33,6 +35,12 @@ export default function BoardFn(props) {
   const [fullAddress, setFullAddress] = useState("");
   const [addressDetail, setAddressDetail] = useState("");
   const [Zipcode, setZipcode] = useState("");
+
+  const [ImgUrl, setImgUrl] = useState(["", "", ""]);
+  const [ImgIdx, setImgIdx] = useState(0);
+  const [ImgChange, setImgChange] = useState("");
+
+  const Fileref = useRef();
 
   function openModal() {
     setIsOpen(true);
@@ -146,6 +154,7 @@ export default function BoardFn(props) {
               title: Titlee,
               contents: Contents,
               youtubeUrl: Youtube,
+              images: ImgUrl,
               boardAddress: {
                 zipcode: Zipcode,
                 address: fullAddress,
@@ -165,7 +174,9 @@ export default function BoardFn(props) {
 
   const EditBtn = async () => {
     const myVariables = {
-      updateBoardInput: {},
+      updateBoardInput: {
+        images: [],
+      },
     };
 
     myVariables.boardId = router.query.number;
@@ -185,6 +196,15 @@ export default function BoardFn(props) {
     if (Contents) {
       myVariables.updateBoardInput.contents = Contents;
     }
+
+    ImgUrl.map((el) => {
+      if (el !== "") myVariables.updateBoardInput.images.push(el);
+    });
+
+    props.data?.fetchBoard.images.map((el, idx) => {
+      if (el !== "" && ImgUrl[idx] === "")
+        myVariables.updateBoardInput.images.push(el);
+    });
 
     if (Zipcode) {
       myVariables.updateBoardInput.boardAddress.zipcode = Zipcode;
@@ -227,9 +247,39 @@ export default function BoardFn(props) {
       fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
     }
 
-    console.log(12345);
     console.log(data3.zonecode); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
   };
+
+  const IndexClick = (idx) => {
+    setImgIdx(idx);
+    // setImgChange(true);
+  };
+
+  const ChangeFile = async (event) => {
+    const file = event.target.files[0];
+
+    console.log(file);
+
+    const result = await uploadFile({
+      variables: {
+        file: file,
+      },
+    });
+    console.log(result);
+
+    const newFileUrl = [...ImgUrl];
+    newFileUrl[ImgIdx] = result.data?.uploadFile.url;
+    setImgUrl(newFileUrl);
+  };
+
+  const ImgClick = () => {
+    Fileref.current.click();
+  };
+
+  console.log(123453232);
+  console.log("hehehehehehehe");
+  console.log(props.data?.fetchBoard.images);
+  console.log(123453232);
 
   return (
     <div>
@@ -265,6 +315,12 @@ export default function BoardFn(props) {
         Pw={Pw}
         Titlee={Titlee}
         Contents={Contents}
+        ImgClick={ImgClick}
+        Fileref={Fileref}
+        ChangeFile={ChangeFile}
+        IndexClick={IndexClick}
+        ImgUrl={ImgUrl}
+        ImgChange={ImgChange}
       />
     </div>
   );

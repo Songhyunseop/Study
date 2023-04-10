@@ -1,6 +1,7 @@
 import BoardFn from "../../../../src/components/units/Boardwrite/BoardWrite.container";
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 const FETCH_BOARD = gql`
   query fetchBoard($boardId: ID!) {
@@ -11,6 +12,7 @@ const FETCH_BOARD = gql`
       youtubeUrl
       likeCount
       dislikeCount
+      images
       boardAddress {
         zipcode
         address

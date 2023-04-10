@@ -104,7 +104,8 @@ export default function WriteBoard(props) {
     });
   };
 
-  console.log(data);
+  console.log("hellooooooooo");
+  console.log(data?.fetchBoard.images);
 
   return (
     <div>

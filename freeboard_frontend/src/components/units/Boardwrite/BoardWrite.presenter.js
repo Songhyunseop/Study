@@ -1,6 +1,7 @@
 import * as S from "./BoardWrite.styles";
 import Modal from "react-modal";
 import DaumPostcodeEmbed from "react-daum-postcode";
+import { Fragment } from "react";
 
 const customStyles = {
   content: {
@@ -179,21 +180,42 @@ export default function BoardUI(props) {
           ></S.YoutubeLink>
           <S.NameTag>사진첨부</S.NameTag>
           <S.UploadBox>
-            <S.Box>
-              <S.Plus>+</S.Plus>
-              <br />
-              Upload
-            </S.Box>
-            <S.Box>
-              <S.Plus>+</S.Plus>
-              <br />
-              Upload
-            </S.Box>
-            <S.Box>
-              <S.Plus>+</S.Plus>
-              <br />
-              Upload
-            </S.Box>
+            {props.ImgUrl.map((el, idx) => (
+              <Fragment key={idx}>
+                {!props.ImgUrl[idx] && !props.data?.fetchBoard.images[idx] ? (
+                  <S.Box
+                    id={idx}
+                    onClick={() => (props.ImgClick(), props.IndexClick(idx))}
+                  >
+                    <S.Plus>+</S.Plus>
+                    <br />
+                    Upload
+                  </S.Box>
+                ) : props.isEdit ? (
+                  <img
+                    onClick={() => (props.ImgClick(), props.IndexClick(idx))}
+                    src={`https://storage.googleapis.com/${
+                      props.ImgUrl[idx]
+                        ? props.ImgUrl[idx]
+                        : props.data?.fetchBoard.images[idx]
+                    }`}
+                    style={{ width: "78px", height: "78px", cursor: "pointer" }}
+                  ></img>
+                ) : (
+                  <img
+                    onClick={() => (props.ImgClick(), props.IndexClick(idx))}
+                    src={`https://storage.googleapis.com/${props.ImgUrl[idx]}`}
+                    style={{ width: "78px", height: "78px", cursor: "pointer" }}
+                  ></img>
+                )}
+                <input
+                  type="file"
+                  onChange={props.ChangeFile}
+                  ref={props.Fileref}
+                  style={{ display: "none" }}
+                />
+              </Fragment>
+            ))}
           </S.UploadBox>
           <S.NameTag>메인 설정</S.NameTag>
           <S.RadioCheck>

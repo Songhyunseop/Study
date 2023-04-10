@@ -127,6 +127,7 @@ export const Box = styled.div`
   text-align: center;
   padding-top: 5px;
   background: #bdbdbd;
+  cursor: pointer;
 `;
 
 export const RadioCheck = styled.div`

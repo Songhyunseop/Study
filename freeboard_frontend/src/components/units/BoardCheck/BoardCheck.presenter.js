@@ -77,7 +77,41 @@ export default function Writing(props) {
           <S.Body>
             <S.UpBox>
               <S.UpBox_Title>{props.data?.fetchBoard.title}</S.UpBox_Title>
-              <img src="/concert.png"></img>
+              <div
+                style={{
+                  width: "987px",
+                  height: "480px",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  overflow: "auto",
+                }}
+              >
+                {new Array(3).fill(1).map((_, idx) =>
+                  props.data?.fetchBoard.images[idx] ? (
+                    <img
+                      key={idx}
+                      style={{
+                        width: "400px",
+                        height: "500px",
+                        marginBottom: "30px",
+                      }}
+                      src={`https://storage.googleapis.com/${props.data?.fetchBoard.images[idx]}`}
+                    ></img>
+                  ) : (
+                    <div key={idx}></div>
+                  )
+                )}
+              </div>
+
+              {/* {new Array(3).fill(1).map((el, idx) => {
+                props.data?.fetchBoard?.images ? (
+                  <img src="/video.png"></img>
+                ) : (
+                  <div>hewfwefewfwe</div>
+                );
+              })} */}
+
               <S.ContentsBox>{props.data?.fetchBoard.contents}</S.ContentsBox>
             </S.UpBox>
           </S.Body>
