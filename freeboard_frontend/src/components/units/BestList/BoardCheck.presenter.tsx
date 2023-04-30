@@ -1,14 +1,20 @@
 import * as S from "./BoardCheck.styles";
 import { IBestListUIProps } from "./BoardCheck.types";
+import { v4 } from "uuid";
 
 export default function BestListUI(props: IBestListUIProps) {
+  const SECRET = "H@$E$#X";
+
   return (
     <S.Wrapper>
       <S.Board_Title>
         <S.TitleName>베스트게시글</S.TitleName>
         <S.Contents_List></S.Contents_List>
         <S.Search>
-          <S.Search_Title placeholder=" 제목을 검색해 주세요" />
+          <S.Search_Title
+            onChange={props.ChangeSearch}
+            placeholder=" 제목을 검색해 주세요"
+          />
           <S.Search_Date placeholder="YYYY.MM.DD ~ YYY.MM.DD" />
           <S.Search_Btn>검색하기</S.Search_Btn>
         </S.Search>
@@ -26,7 +32,19 @@ export default function BestListUI(props: IBestListUIProps) {
               <S.Board_List key={el._id}>
                 <S.BoardItem1>{idx + props.Next}</S.BoardItem1>
                 <S.BoardItem2 id={el._id} onClick={props.clickNext}>
-                  {el.title}
+                  {el.title
+                    .replaceAll(props.keyword, SECRET + props.keyword + SECRET)
+                    .split(SECRET)
+                    .map((el: string) => (
+                      <span
+                        style={{
+                          color: el === props.keyword ? "gold" : "black",
+                        }}
+                        key={v4()}
+                      >
+                        {el}
+                      </span>
+                    ))}
                 </S.BoardItem2>
                 <S.BoardItem3>{el.writer}</S.BoardItem3>
                 <S.BoardItem4>{el.createdAt.slice(0, 10)}</S.BoardItem4>
@@ -45,7 +63,7 @@ export default function BestListUI(props: IBestListUIProps) {
                 style={{
                   color: props.targetNum === String(idx) ? "gold" : "",
                 }}
-                id={idx}
+                id={String(idx)}
                 onClick={props.ClickNumber}
                 key={idx}
               >

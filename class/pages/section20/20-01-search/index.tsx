@@ -1,5 +1,5 @@
 import { useQuery, gql } from "@apollo/client";
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import {
   IQuery,
   IQueryFetchBoardsArgs,
@@ -24,12 +24,6 @@ export default function StaticRoutingPage(): JSX.Element {
     IQueryFetchBoardsArgs
   >(FETCH_BOARDS);
 
-  const onClickPage = (event: MouseEvent<HTMLSpanElement>): void => {
-    void refetch({ page: Number(event.currentTarget.id) });
-  };
-  //
-  //
-  //
   //
   //
 
@@ -50,11 +44,6 @@ export default function StaticRoutingPage(): JSX.Element {
           <span style={{ margin: "10px" }}>{el.title}</span>
           <span style={{ margin: "10px" }}>{el.writer}</span>
         </div>
-      ))}
-      {new Array(10).fill("철수").map((_, idx) => (
-        <span key={idx + 1} id={String(idx + 1)} onClick={onClickPage}>
-          {idx + 1}
-        </span>
       ))}
     </div>
   );

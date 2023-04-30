@@ -1,0 +1,18 @@
+function useState (초기값) {
+
+    let state = 초기값
+
+    const setState = (변경값) => {
+
+        console.log(`${state}에서 ${변경값}으로 값을 변경`) // 1. state 변경
+        console.log(`변경된 ${변경값}을 사용해서 컴포넌트를 리렌더링 함`) // 2. 해당 컴포넌트 리렌더링
+    }
+
+  return [state, setState]
+}
+undefined
+const [count, setCount] = useState(0)
+undefined
+setCount(5)
+VM3550:7 0에서 5으로 값을 변경
+VM3550:8 변경된 5을 사용해서 컴포넌트를 리렌더링 함

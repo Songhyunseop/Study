@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <title>Preload</title>
+
+    <!-- [프리로드]  -->
+    <!-- 나중에 다운로드 받게 되는 파일을 먼저 다운받을 수 있도록 순서 제어 -->
+    <!-- //
+    //
+    // -->
+    <!-- 기존의 다운로드 순서에서 image를 우선시 다운로드 받는 방법 -->
+    <link rel="preload" as="image" href="./BlankImage.png" />
+    <!-- 만약 여기서 prefetch를 할 경우 prefetch는 다음 것을 미리 받는
+    것이기에 자동으로 마지막에 다운받게 됨 -->
+    <link rel="stylesheet" href="./index.css" />
+
+    <script src="./index2.js"></script>
+    <script src="./index1.js"></script>
+    <script src="./index3.js"></script>
+    <script src="./index4.js"></script>
+    <script src="./index5.js"></script>
+    <script src="./index6.js"></script>
+  </head>
+  <body>
+    <img src="./BlankImage.png" />
+  </body>
+</html>

@@ -1,0 +1,10 @@
+const children = ["철수", "영희", "훈이"]
+undefined
+const child1 = children[0]
+undefined
+const [, child2, child3] = children   // 1. 순서에 맞게 구조분해할당 가능 => child1 을 만들지 않는 경우라도 값은 비워두고 ,처리 해줘야 함!
+undefined                             // 2. 대신에 이름은 중요하지 않음!
+child2
+'영희'
+child3
+'훈이'

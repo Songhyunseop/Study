@@ -1,5 +1,5 @@
 import { useQuery, gql } from "@apollo/client";
-import { ChangeEvent, MouseEvent } from "react";
+import { ChangeEvent } from "react";
 import {
   IQuery,
   IQueryFetchBoardsArgs,
@@ -26,15 +26,6 @@ export default function StaticRoutingPage(): JSX.Element {
     IQueryFetchBoardsArgs
   >(FETCH_BOARDS);
 
-  const onClickPage = (event: MouseEvent<HTMLSpanElement>): void => {
-    void refetch({ page: Number(event.currentTarget.id) });
-  };
-  //
-  //
-  //
-  //
-  //
-
   const getDebounce = _.debounce((value) => {
     void refetch({ search: value, page: 1 });
   }, 1000); // 1초동안 변경값이 없다면 debounce 함수가 실행됨
@@ -46,10 +37,6 @@ export default function StaticRoutingPage(): JSX.Element {
     getDebounce(event.currentTarget.value);
   };
 
-  // const onClickSearch = (): void => {
-  //   void refetch({ search, page: 1 });
-  // };
-
   return (
     <div>
       검색어 입력: <input type="text" onChange={onChangeSearch} />
@@ -59,11 +46,6 @@ export default function StaticRoutingPage(): JSX.Element {
           <span style={{ margin: "10px" }}>{el.title}</span>
           <span style={{ margin: "10px" }}>{el.writer}</span>
         </div>
-      ))}
-      {new Array(10).fill("철수").map((_, idx) => (
-        <span key={idx + 1} id={String(idx + 1)} onClick={onClickPage}>
-          {idx + 1}
-        </span>
       ))}
     </div>
   );
