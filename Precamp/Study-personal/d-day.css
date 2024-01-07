@@ -1,0 +1,53 @@
+
+
+* {
+
+    box-sizing: border-box;
+}
+
+
+
+.container {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+h1 {
+
+    font-size: 70px;
+}
+
+
+
+.date {
+
+  
+    margin-bottom: 20px;
+}
+
+
+.date span {
+
+    margin-right: 8px;
+}
+
+
+
+span, .status {
+
+    font-size: 22px;
+    font-weight: 600;
+}
+
+
+
+.status {
+
+    margin-top: 20px;
+}

@@ -1,0 +1,59 @@
+
+* {
+
+    box-sizing: border-box;
+}
+
+
+.container {
+    width: 100%;
+    height: 400px;
+    padding: 30px;
+    border: 2px solid blue;
+}
+
+
+
+.item {
+
+    width: 160px;
+    height: 140px;
+    border: 2px solid black;
+    background: #dddddd;
+}
+
+
+
+.item1 {
+
+    position: relative;
+    z-index: 1;
+}
+
+
+.item2 {
+
+    position: absolute;
+    top: 70px;
+    left: 70px;
+    z-index: 2;
+}
+
+
+
+.item3 {
+
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    z-index: 4;
+}
+
+
+.item4 {
+
+    position: absolute;
+    top: 130px;
+    left: 130px;
+    z-index: 3;
+}

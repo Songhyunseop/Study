@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>회원가입</title>
+    <link href="./final.css" rel="stylesheet">
+    <script src="./final.js"></script>
+</head>
+<body>
+    <div class="Box">
+       <div class="title">코드캠프 회원가입</div>
+       <div class="sign">
+        <input type="text" placeholder=" 이메일을 입력해 주세요" class="mm" id="tx1" maxlength="20" oninput="login()">
+        <div class="wrong" id="wrong1"></div>
+        <input type="text" placeholder=" 이름을 입력해 주세요" class="mm" id="tx2" maxlength="4" oninput="login()">
+        <div class="wrong" id="wrong2"></div>
+        <input type="password" placeholder=" 비밀번호를 입력해 주세요" class="mm" id="pw1" maxlength="18" oninput="login()">
+        <div class="wrong" id="wrong3"></div>
+        <input type="password" placeholder=" 비밀번호를 다시 입력해 주세요" class="mm" id="pw2" maxlength="18" oninput="login()">
+        <div class="wrong" id="wrong4"></div>
+       </div>
+       <div class="phone">
+        <input class="phone__blank" type="number" id="phone1" maxlength="3" oninput="next1()" oninput="login()"> -
+        <input class="phone__blank" type="number" id="phone2" maxlength="4" oninput="next2()" oninput="login()"> -
+        <input class="phone__blank" type="number" id="phone3" maxlength="4" oninput="login()">
+       </div>
+       <div class="send__number">
+        <div class="number" id="number">000000</div>
+        <button disabled="true" class="send__button" id="send__button" onclick="buttonClick()">인증번호 전송</button>
+       </div>
+       <div class="send__ok">
+        <div class="rest__time" id="rest__time">3:00</div>
+        <button disabled="true" class="ok__button" id="okButton" onclick="complete()">인증 완료</button>
+       </div>
+       <div class="region">
+        <select class="selection" id="selectBox">
+            <option selected disabled value="">지역을 선택하세요</option>
+            <option>서울</option>
+            <option>경기</option>
+            <option>인천</option>
+        </select>
+        <div class="select__box">
+            <div class="select__wrong" id="select__wrong"></div>
+        </div>
+       </div>
+       <div class="malefemale">
+        <div class="mf" id="female__male"> 
+            <input type="radio" name="gender" id="female">여성
+            <input type="radio" name="gender" id="male">남성
+        </div>
+       <div class="mf__box">
+            <div class="mf__wrong" id="mf__wrong"></div>
+       </div>
+       </div>
+        <div class="lineline"> 
+            <div class="line"></div>
+        </div>
+        <hr>
+        <button class="btn" onclick="signClick()">가입하기</button>
+    </div>
+</body>
+</html>

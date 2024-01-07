@@ -1,0 +1,313 @@
+.Box {
+    width: 540px;
+    height: 960px;
+    background: #FFFFFF;
+border: 1px solid #AACDFF;
+box-shadow: 7px 7px 39px rgba(0, 104, 255, 0.25);
+border-radius: 20px;
+margin: 0 auto;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-between;
+position: relative;
+}
+
+
+
+.title {
+    width: 380px;
+    height: 94px;
+    font-family: 'Noto Sans CJK KR';
+font-style: normal;
+font-weight: 700;
+font-size: 32px;
+line-height: 47px;
+padding-top: 60px;
+color: #0068FF;
+}
+
+
+
+.sign {
+    height: 320px;
+
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between; 
+}
+
+
+
+
+
+.mm {
+    width: 380px;
+    height: 60px;
+    border-radius: 7px;
+    text-indent: 15px;
+    margin-bottom: 22spx;
+    
+    
+    border: 1px solid #d2d2d2;
+}
+
+
+
+
+.wrong {
+    width: 100%;
+    line-height: 0px;
+
+    color: red;
+    text-align: center;
+    
+}
+
+
+
+
+
+
+.phone {
+    width: 380px;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between
+
+
+}
+
+
+.phone__blank {
+    width: 100px;
+    height: 40px;
+    border: 1px solid #d2d2d2;
+    border-radius: 7px;
+}
+
+
+
+
+
+
+.send__number {
+
+    width: 380px;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 8px;
+    margin-top: 5px;
+}
+
+
+.number {
+    font-size: normal;
+    font-weight: 400;
+    font-size: 16px;
+    margin-left: 20px;
+    color: #0068FF;
+}
+
+
+.send__button {
+    width: 120px;
+    height: 40px;
+    margin-left: 20px;
+    font-size: 16px;
+    background: #ffffff;
+    border: 1px solid #d2d2d2;
+    border-radius: 7px;
+
+ 
+   
+}
+
+
+
+
+.send__ok {
+
+    width: 380px;
+    height: 30px;
+    margin-top: 7px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+
+
+
+.rest__time {
+
+    font-size: normal;
+    font-weight: 400;
+    font-size: 16px;
+    color: #0068FF;
+
+}
+
+
+.ok__button {
+
+    width: 120px;
+    height: 40px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #FFFFFF;
+    background: #0068ff;
+    border: 1px solid #d2d2d2;
+    border-radius: 7px;
+    margin-left: 20px;
+
+}
+
+
+
+
+.region {
+    width: 380px;
+    height: 60px;
+    position: absolute;
+    top: 655px;
+    left: 80px;
+    margin: 0 auto;
+}
+
+
+
+
+
+
+.selection {
+
+    width: 380px;
+    height: 60px;
+    border: 1px solid #d2d2d2;
+    border-radius: 7px;
+}
+
+
+option {
+
+    font-weight: 400;
+    font-size: 16px;
+}
+
+
+
+.select__box {
+
+    position: relative;
+}
+
+
+
+
+.select__wrong {
+
+    width: 100%;
+    line-height: 0px;
+    color: red;
+    text-align: center;
+    position: absolute;
+    top: 13px;
+
+}
+
+
+
+
+
+.malefemale {
+
+    width: 50%;
+    padding-top: 140px;
+
+}
+
+
+
+
+.mf {
+    font-size: 16px;
+line-height: 24px;
+margin-left: 90px;
+}
+
+
+
+
+.mf__box {
+    width: 100%;
+    position: relative;
+    background-color: yellow
+
+}
+
+
+
+
+.mf__wrong {
+
+    width: 100%;
+    line-height: 0px;
+    color: red;
+    text-align: center;
+    position: absolute;
+    top: 8px;
+
+}
+
+
+
+
+
+.line {
+    width: 380px;
+    height: 1px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    background-color: #E6E6E6;
+}
+
+
+
+
+.check {
+    font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 21px;
+/* identical to box height */
+
+
+color: #000000;
+}
+
+
+
+
+.btn {
+    width: 380px;
+    height: 75px;
+    background: #FFFFFF;
+border: 1px solid #0068FF;
+border-radius: 10px;
+font-size: 18px;
+font-weight: 400;
+font-size: 18px;
+line-height: 27px;
+/* identical to box height */
+
+text-align: center;
+margin-bottom: 40px;
+color: #0068FF;
+}
