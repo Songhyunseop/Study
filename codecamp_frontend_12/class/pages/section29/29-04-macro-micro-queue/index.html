@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <title>Document</title>
+    <script>
+      const onClickLoop = () => {
+        console.log("시작");
+        //
+
+        // 비동기 작업 (Macro queue에 해당됨)
+        setTimeout(() => {
+          // 비동기 작업 (Micro queue에 해당됨)
+          new Promise((resolve) => resolve("철수")).then((res) => {
+            console.log("저는 Promise(setTimeout 안에서 실행될 거에요)");
+          });
+          console.log("저는 setTimeout, Macro queue에 들어갑니다");
+        }, 0);
+        //
+        //
+        //
+        // 비동기 작업 (Micro queue에 해당됨)
+        new Promise((resolve) => resolve("철수")).then((res) => {
+          console.log("저는 Promise(1)입니다, Micro queue에 들어갑니다");
+        });
+        //
+        //
+        // 비동기 작업 (Macro queue에 해당됨)
+        setInterval(() => {
+          console.log("저는 setInterval, Macro queue에 들어갑니다");
+        }, 0);
+        //
+        //
+        //
+        //
+        let sum = 0;
+
+        for (let i = 0; i <= 900000000; i++) {
+          sum += 1;
+        }
+        //
+        //
+        //
+        // 비동기 작업 (Micro queue에 해당됨)
+        new Promise((resolve) => resolve("철수")).then((res) => {
+          console.log("저는 Promise(2)입니다, Micro queue에 들어갑니다");
+        });
+
+        console.log("끝");
+      };
+    </script>
+  </head>
+  <body>
+    <button onclick="onClickLoop()">시작하기</button>
+  </body>
+</html>

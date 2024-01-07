@@ -1,0 +1,13 @@
+const profile = {
+
+    name: "철수",
+    age: 12,
+    school: "다람쥐초등학교"
+}
+undefined
+const { age, school } = profile  // 1. 이름이 동일한 값만 구조분해할당 가능
+undefined                        // 2. 대신 순서는 중요하지 않음
+age
+12
+school
+'다람쥐초등학교'

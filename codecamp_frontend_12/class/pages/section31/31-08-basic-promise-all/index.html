@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <title>Document</title>
+    <script>
+      // 1. 개별적으로 각각의 Promise를 await으로 기다리는 방식 (1번 응답 기다림이 끝나고, 2번으로 넘어가기 때문에 시간이 오래걸림)
+      const onClickPromise = async () => {
+        console.time("=== 각각의 개별 Promise 걸리는 시간 측정 ===");
+        const result1 = await new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve("다운로드 url");
+          }, 2000);
+        });
+
+        const result2 = await new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve("다운로드 url");
+          }, 3000);
+        });
+
+        const result3 = await new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve("다운로드 url");
+          }, 1000);
+        });
+
+        console.timeEnd("=== 각각의 개별 Promise 걸리는 시간 측정 ===");
+      };
+
+      //
+      //
+      //
+      //
+      //
+      // 2. PromiseAll 을 사용해서 한 번에 모든 Promise를 기다리기 때문에 (동시에 await) 걸리는 시간을 단축 가능
+
+      const onClickPromiseAll = async () => {
+        // await Promise.all([promise, promise, promise]);
+
+        console.time("===한방에 Promise.all===");
+
+        const results = await Promise.all([
+          new Promise((resolve, reject) => {
+            setTimeout(() => {
+              resolve("다운로드 url");
+            }, 2000);
+          }),
+          new Promise((resolve, reject) => {
+            setTimeout(() => {
+              resolve("다운로드 url");
+            }, 3000);
+          }),
+          new Promise((resolve, reject) => {
+            setTimeout(() => {
+              resolve("다운로드 url");
+            }, 1000);
+          }),
+        ]);
+        console.log(results);
+        console.timeEnd("===한방에 Promise.all===");
+      };
+    </script>
+  </head>
+  <body>
+    <button onclick="onClickPromise()">Promise 연습</button>
+    <button onclick="onClickPromiseAll()">Promise.all 연습</button>
+  </body>
+</html>

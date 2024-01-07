@@ -1,0 +1,38 @@
+// this 란 무엇인가
+
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <title>This의 이해</title>
+    <script>
+           class ClassCounterPage {
+             count = 10;
+
+             onClickCountUp() {         //this의 주체 변경 해결법
+               console.log(this.count); // 방법 1. 화살표 함수로 변경 (화살표형식으로 바꿀 시 this의 주체는 전체 코드를 기준으로 하게 됨)
+
+             }
+
+             render() {
+               // jsx가 html 구조 형식으로 변형되고 인식되는 과정
+               const button = document.createElement("button");
+               button.count = 100
+               button.innerText = "카운트 올리기";
+               button.addEventListener("click", this.onClickCountUp.bind(this)); //this의 주체 변경 해결법
+               document.body.appendChild(button);                     // 방법 2. .bind(this)를 통해 this까지 연결(onCLick 함수에서 사용한 this를 여기서 그대로 사용하겠다는 의미)
+             }
+
+             // !! 여기서 처음 렌더링 될때 this는 class 전체 코드를 this로 봄, 하지만 이후 버튼을 클릭하게 되면, 버튼이 this의 주체가 됨
+             // (즉, this는 동적으로 바뀔 수 있음!)
+
+             window.onload = () => {
+
+                 const counter = new ClassCounterPage()
+                 counter.render()
+             }
+      // 리액트가 위의 과정들을 대신해서 작업해 줌
+           }
+    </script>
+  </head>
+  <body></body>
+</html>
