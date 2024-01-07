@@ -1,0 +1,21 @@
+{
+  "name": "codecamp-tests",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "codecamp",
+  "scripts": {
+    "test": "jest --verbose",
+    "submit01": "jest ./01_variable,function,type --silent --reporters='./custom-reporter.js'",
+    "submit02": "jest ./02_conditional,string,loop --silent --reporters='./custom-reporter.js'",
+    "submit03": "jest ./03_array,object --silent --reporters='./custom-reporter.js'",
+    "submit04": "jest ./04_HigherOrderFunction --silent --reporters='./custom-reporter.js'",
+    "submit05": "jest ./05_recursive --silent --reporters='./custom-reporter.js'",
+    "submit06": "jest ./06_dataStructure --silent --reporters='./custom-reporter.js'",
+    "submit07": "jest ./07_timeComplexity --silent --reporters='./custom-reporter.js'"
+  },
+  "devDependencies": {
+    "axios": "^0.26.1",
+    "colors": "^1.4.0",
+    "jest": "^27.5.1"
+  }
+}
